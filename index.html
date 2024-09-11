@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <title>Coast</title>
+        <style>
+          body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .browser-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .address-bar {
+            display: flex;
+            padding: 10px;
+            background: #f1f1f1;
+            border-bottom: 1px solid #ccc;
+            align-items: center;
+        }
+        .address-bar button {
+            padding: 5px 10px;
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        .address-bar input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+        }
+        iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+        </style>
+        <body>
+             <div class="browser-container">
+        <div class="address-bar">
+            <input type="text" id="urlInput" placeholder="Enter URL here" value="https://google.com">
+            <button id="navigateButton">⌕</button>
+        </div>
+        <iframe id="browserFrame" src="https://google.com"></iframe>
+    </div>
+
+    <script>
+        const iframe = document.getElementById('browserFrame');
+        const urlInput = document.getElementById('urlInput');
+        const navigateButton = document.getElementById('navigateButton');
+
+        function updateUrl() {
+            const url = iframe.src;
+            urlInput.value = url;
+        }
+
+        function navigateTo(url) {
+            if (url) {
+                iframe.src = url;
+                updateUrl();
+            }
+        }
+
+        navigateButton.addEventListener('click', function() {
+            const url = urlInput.value.trim();
+            if (url) {
+                const formattedUrl = /^https?:\/\//i.test(url) ? url : 'https://' + url;
+                navigateTo(formattedUrl);
+            } else {
+                alert('Please enter a URL.');
+            }
+        });
+        
+        urlInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                navigateButton.click();
+            }
+        });
+
+        
+        iframe.addEventListener('load', function() {
+            updateUrl();
+        });
+    </script>
+            <script>var link = document.querySelector("link[rel~='icon']");
+if (!link) {
+    link = document.createElement('link');
+    link.rel = 'icon';
+    document.head.appendChild(link);
+}
+link.href = 'Coast.ico';</script>
+            </body>
+        </head>
+</html>
